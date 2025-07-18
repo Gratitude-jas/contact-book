@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Book</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>Contact Book</h1>
+
+    <section class="add-contact">
+      <h2>Add Contact</h2>
+      <form class="contact-form" method="POST" action="{{ url_for('add_contact') }}">
+       <input type="text" name="name" placeholder="Name" required>
+       <input type="text" name="phone" placeholder="Phone" required>
+       <button type="submit">Add Contact</button>
+</form>
+<form method="get" action="{{ url_for('index') }}">
+    <input type="text" name="search" placeholder="Search by name" value="{{ request.args.get('search', '') }}">
+    <button type="submit">Search</button>
+</form>
+
+    </section>
+
+    <section class="contacts-list">
+      <h3>Contacts List</h3>
+      <ul>
+        {% for contact in contacts %}
+          <li><span class="contact-name">{{ contact.name }}</span> - <span class="contact-phone">{{ contact.phone }}</span></li>
+        {% else %}
+          <li>No contacts found.</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
